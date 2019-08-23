@@ -5,7 +5,7 @@ library(tidyverse)
 library(broom)
 
 ###
-df <- read_csv("data/master_s1s2.csv")
+df <- read_csv("hidden/master_s1s2.csv")
 df_skinny <- df %>% 
   select(lastname:selfevaluation12,psm5:psm3) %>% 
   mutate(psm=(psm1+psm2+psm3+psm4+psm5)/5) %>% 
