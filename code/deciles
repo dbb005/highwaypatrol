@@ -12,9 +12,6 @@ response <- read_csv("data/response.csv")
 oshp <- read_csv("data/OSHP.csv") %>% 
   rename(postname = NAME)
 avg <- read_csv("data/database_deptaverages.csv")
-#posts <- read_csv("data/posts.csv") %>%
-  #select(-DISTRICT) %>%
-  #mutate(PRATE = RESP/INDIV)
 # Merges ------------------------------------------------------------------
 postids <- oshp %>% filter(POST>0) %>% select(POST) %>% pull()
 df <- avg %>% filter(POST %in% postids) %>% write_csv("data/df.csv")
@@ -34,29 +31,35 @@ ggplot() +
   geom_sf(data = posts,
           aes(fill = avgage_ntile),
           color = "black") +
-  scale_fill_gradient(high = "#4a1486", #
-                      low = "#dadaeb", 
-                      guide = "colorbar") +
+  scale_fill_gradientn(breaks=c(1, 25, 50, 75, 99), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st","", "50th","", "99th")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
-  ggtitle("Average Age Across OSHP Posts", 
-          subtitle = "(By District and Post)") +
+  ggtitle("Average Age Across OSHP Posts") + #,subtitle = "") +
   labs(fill = "Average Age\nPercentile") +
   theme_void() +
-  ggsave("plots/map_avgage.png", width = 10)
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm'),
+        text=element_text(family = "IBM Plex Mono")) +
+  ggsave("plots/map_avgage.png", width = 6, height = 6)
+#the solve for the "but what if the spread is small?" question may be the have the labels be... 
+#1st
+#(number associated with that percentile)
+#
+#50th
+#(number associated with that percentile)
+#
+#99th
+#(number associated with that percentile)
 # Posts using Lat/Lon -----------------------------------------------------
-st_centroid_xy <- function(df) {
-  df %>%
-    mutate(centroid = st_centroid(geometry),
-           x = sapply(centroid, "[[", 1),
-           y = sapply(centroid, "[[", 2)) %>%
-    select(everything(),x,y,geometry,-centroid)
-}
 dots <- places(cb = TRUE, state = "oh") %>% 
   rename(postname = NAME) %>% 
   inner_join(.,oshp, by = "postname") %>%
   select(postname,POST,DISTRICT,geometry) %>% 
   left_join(., df, by = "POST") %>%
-  st_centroid_xy() 
+  rleuven::st_centroid_xy() 
 # Maps, round 2 -----------------------------------------------------------
 ggplot() +
   geom_sf(data = posts) +
@@ -71,5 +74,5 @@ ggplot() +
                       guide = "colorbar") +
   ggtitle("Average Tenure Across OSHP Posts") + 
   labs(fill = "Average\nTenure") +
-  theme_void() #+
-  #ggsave("plots/map_avgage_dots.png", width = 10, height = 6)
+  theme_void() +
+  ggsave("plots/map_avgage.png", width = 10, height = 6)
