@@ -1,0 +1,75 @@
+library(tidyverse)
+library(ggplot2)
+library(rleuven)
+library(tidyverse)
+library(tigris)
+library(maptools)
+library(sf)
+options(tigris_class = "sf")
+options(tigris_use_cache = TRUE)
+# Read In Data ------------------------------------------------------------
+response <- read_csv("data/response.csv")
+oshp <- read_csv("data/OSHP.csv") %>% 
+  rename(postname = NAME)
+avg <- read_csv("data/database_deptaverages.csv")
+#posts <- read_csv("data/posts.csv") %>%
+  #select(-DISTRICT) %>%
+  #mutate(PRATE = RESP/INDIV)
+# Merges ------------------------------------------------------------------
+postids <- oshp %>% filter(POST>0) %>% select(POST) %>% pull()
+df <- avg %>% filter(POST %in% postids) %>% write_csv("data/df.csv")
+ctys <- counties(cb = TRUE, state = "oh") %>%
+  mutate(FIPS = as.numeric(paste0(STATEFP,COUNTYFP)))
+posts <- oshp %>%
+  full_join(.,ctys, by = "FIPS") %>% 
+  select(-(POST2:COUNTYNS),-(AFFGEOID:LSAD)) %>% 
+  left_join(., df_ntile, by = "POST") %>% 
+  st_as_sf()
+# Percentiles -------------------------------------------------------------
+df_ntile <- df %>%
+  mutate_at(.funs = list(ntile = ~ntile(., 100)), .vars = vars(2:43)) %>% 
+  select(-(avgage:woman_not_suitableagree))
+# Maps --------------------------------------------------------------------
+ggplot() +
+  geom_sf(data = posts,
+          aes(fill = avgage_ntile),
+          color = "black") +
+  scale_fill_gradient(high = "#4a1486", #
+                      low = "#dadaeb", 
+                      guide = "colorbar") +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Average Age Across OSHP Posts", 
+          subtitle = "(By District and Post)") +
+  labs(fill = "Average Age\nPercentile") +
+  theme_void() +
+  ggsave("plots/map_avgage.png", width = 10)
+# Posts using Lat/Lon -----------------------------------------------------
+st_centroid_xy <- function(df) {
+  df %>%
+    mutate(centroid = st_centroid(geometry),
+           x = sapply(centroid, "[[", 1),
+           y = sapply(centroid, "[[", 2)) %>%
+    select(everything(),x,y,geometry,-centroid)
+}
+dots <- places(cb = TRUE, state = "oh") %>% 
+  rename(postname = NAME) %>% 
+  inner_join(.,oshp, by = "postname") %>%
+  select(postname,POST,DISTRICT,geometry) %>% 
+  left_join(., df, by = "POST") %>%
+  st_centroid_xy() 
+# Maps, round 2 -----------------------------------------------------------
+ggplot() +
+  geom_sf(data = posts) +
+  geom_point(data = dots,
+             aes(x = x, y = y,
+                 fill = avgtenure),
+             size = 3.5, shape = 21, alpha = 0.75) +
+  #ggrepel::geom_label_repel(data = dots,
+  #                         aes(x = x, y = y, label = postname)) +
+  scale_fill_gradient(high = "#005824", #
+                      low = "#e5f5f9", 
+                      guide = "colorbar") +
+  ggtitle("Average Tenure Across OSHP Posts") + 
+  labs(fill = "Average\nTenure") +
+  theme_void() #+
+  #ggsave("plots/map_avgage_dots.png", width = 10, height = 6)
