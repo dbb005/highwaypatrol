@@ -2,10 +2,12 @@ install.packages("tidyverse")
 install.packages("devtools")
 devtools::install_github("andrewvanleuven/rLeuven")
 library(tidyverse)
+library(dplyr)
 library(broom)
+library(readr)
 
 ###
-df <- read_csv("hidden/master_s1s2.csv")
+df <- read_csv("data/data.csv")
 df_skinny <- df %>% 
   select(lastname:selfevaluation12,psm5:psm3) %>% 
   mutate(psm=(psm1+psm2+psm3+psm4+psm5)/5) %>% 
@@ -23,7 +25,8 @@ df_skinny <- df %>%
   select(-c(18:45)) %>% 
   mutate(male=if_else(gender>1, 1, 0, missing = NULL)) %>% 
   mutate(white=if_else(race<1, 1, 0, missing = NULL)) %>% 
-  mutate(tenure=(2019-joinyear))
+  mutate(tenure=(2019-joinyear)) %>% 
+  select(-(gender:race),-(joinyear))
 
 # Tidy Up Data ------------------------------------------------------------
 lts <- df_skinny %>% filter(rank=="Lieutenant") %>% 
@@ -37,8 +40,11 @@ stlt <- df_skinny %>% filter(rank=="Staff Lieutenant") %>%
 
 
 lts_join <- left_join(lts, stlt, by = ("stlt_uniqueid"))
-sgt_join <- left_join(sgt, lts_join, by = ("lt_uniqueid"))
-all_join <- left_join(df_skinny, sgt_join, by = "")
+sgt_join <- left_join(sgt, lts_join, by = ("lt_uniqueid")) %>%   
+  select(-(sgt_supname:sgt_supid),-(lt_supname:lt_supid),-(stlt_supname:stlt_supid))
+write_csv(sgt_join, "data/supervisors_join.csv")
+
+#all_join <- left_join(df_skinny, sgt_join, by = "")
 
 
 # example -----------------------------------------------------------------
