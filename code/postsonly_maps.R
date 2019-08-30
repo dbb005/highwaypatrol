@@ -10,7 +10,7 @@ options(tigris_use_cache = TRUE)
 response <- read_csv("data/response.csv")
 oshp <- read_csv("data/OSHP.csv") %>% 
   rename(postname = NAME)
-avg <- read_csv("data/database_deptaverages.csv")
+avg <- read_csv("data/dept_avgs.csv")
 
 # Merges ------------------------------------------------------------------
 postids <- oshp %>% filter(POST>0) %>% select(POST) %>% pull()

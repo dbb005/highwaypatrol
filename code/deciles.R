@@ -1,3 +1,6 @@
+install.packages(devtools)
+library(devtools)
+devtools::install_github("andrewvanleuven/rleuven")
 library(tidyverse)
 library(ggplot2)
 library(rleuven)
@@ -5,16 +8,22 @@ library(tidyverse)
 library(tigris)
 library(maptools)
 library(sf)
+library(ggrepel)
 options(tigris_class = "sf")
 options(tigris_use_cache = TRUE)
 # Read In Data ------------------------------------------------------------
 response <- read_csv("data/response.csv")
 oshp <- read_csv("data/OSHP.csv") %>% 
   rename(postname = NAME)
-avg <- read_csv("data/database_deptaverages.csv")
+avg <- read_csv("data/dept_avgs.csv")
+
 # Merges ------------------------------------------------------------------
 postids <- oshp %>% filter(POST>0) %>% select(POST) %>% pull()
 df <- avg %>% filter(POST %in% postids) %>% write_csv("data/df.csv")
+# Percentiles -------------------------------------------------------------
+df_ntile <- df %>%
+  mutate_at(.funs = list(ntile = ~ntile(., 10)), .vars = vars(2:43)) %>% 
+  select(-(avgage:woman_not_suitableagree))
 ctys <- counties(cb = TRUE, state = "oh") %>%
   mutate(FIPS = as.numeric(paste0(STATEFP,COUNTYFP)))
 posts <- oshp %>%
@@ -22,28 +31,36 @@ posts <- oshp %>%
   select(-(POST2:COUNTYNS),-(AFFGEOID:LSAD)) %>% 
   left_join(., df_ntile, by = "POST") %>% 
   st_as_sf()
-# Percentiles -------------------------------------------------------------
-df_ntile <- df %>%
-  mutate_at(.funs = list(ntile = ~ntile(., 10)), .vars = vars(2:43))
-  #select(-(avgage:woman_not_suitableagree))
+post_xw <- posts %>% 
+  filter(!is.na(postname)) %>% 
+  select(POST, postname) %>% 
+  st_drop_geometry()
+post_sf <- st_dissolve(posts, POST) %>% 
+  select(-STATUS) %>% 
+  left_join(.,df_ntile) %>% 
+  left_join(.,post_xw) %>% 
+  select(POST,postname,everything(),geometry) %>% 
+  st_centroid_xy()
 # Maps --------------------------------------------------------------------
 ggplot() +
-  geom_sf(data = posts,
+  geom_sf(data = post_sf,
           aes(fill = avgage_ntile),
           color = "black") +
-  scale_fill_gradientn(breaks=c(1, 25, 50, 75, 99), 
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
                        labels=c("1st\n(32)","", "50th\n(37)","", "99th\n(43)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Average Age Across OSHP Posts") + #,subtitle = "") +
+  ggrepel::geom_label_repel(data = post_sf,
+                           aes(x = x, y = y, label = postname)) +
   labs(fill = "Average Age\nPercentile") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
-        legend.spacing.x = unit(1.0, 'cm'),
-        text=element_text(family = "IBM Plex Mono")) +
-  ggsave("plots/map_avgage.png", width = 6, height = 6)
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_avgage.png", width = 10, height = 10)
+
 #the solve for the "but what if the spread is small?" question may be the have the labels be... 
 #1st
 #(number associated with that percentile)
@@ -53,14 +70,14 @@ ggplot() +
 #
 #99th
 #(number associated with that percentile)
-# Posts using Lat/Lon -----------------------------------------------------
+# Graveyard - Posts using lat/lon -----------------------------------------------------
 dots <- places(cb = TRUE, state = "oh") %>% 
   rename(postname = NAME) %>% 
   inner_join(.,oshp, by = "postname") %>%
   select(postname,POST,DISTRICT,geometry) %>% 
   left_join(., df, by = "POST") %>%
   rleuven::st_centroid_xy() 
-# Maps, round 2 -----------------------------------------------------------
+# Graveyard - Posts using dots -----------------------------------------------------------
 ggplot() +
   geom_sf(data = posts) +
   geom_point(data = dots,
