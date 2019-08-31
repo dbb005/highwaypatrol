@@ -481,6 +481,26 @@ ggplot() +
         legend.spacing.x = unit(1.0, 'cm')) +
   ggsave("plots/map_forcepol3.png", width = 9, height = 9)
 
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = avgintfair6_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(0.17)","", "50th","", "99th\n(0.43)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Perceptions of Supervisor Fairness Across OSHP Posts",
+          subtitle = "'Your Supervisor treats you the same way he or she treats other employees.'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Supervisor Fairness\nPercentile") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_intfair6.png", width = 9, height = 9)
+
 #the solve for the "but what if the spread is small?" question may be the have the labels be... 
 #1st
 #(number associated with that percentile)
