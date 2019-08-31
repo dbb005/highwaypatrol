@@ -1,4 +1,6 @@
 install.packages(devtools)
+install.packages("lwgeom")
+library(lwgeom)
 library(devtools)
 devtools::install_github("andrewvanleuven/rleuven")
 library(tidyverse)
@@ -99,6 +101,44 @@ ggplot() +
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
   ggsave("plots/map_avgage.png", width = 10, height = 10)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = avgwhite_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(33)","", "50th","", "99th\n(100)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Percent of White Respondents Across OSHP Posts") + #,subtitle = "") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Average White\nPercentile") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_avgwhite.png", width = 10, height = 10)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = avgorgfarir1_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(1.55)","", "50th","", "99th\n(3.5)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Perceptions of Organizational Fairness Across OSHP Posts") + #,subtitle = "") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Average White\nPercentile") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_avgorgfair1.png", width = 10, height = 10)
 
 #the solve for the "but what if the spread is small?" question may be the have the labels be... 
 #1st
