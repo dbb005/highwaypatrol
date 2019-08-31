@@ -100,7 +100,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_avgage1.png", width = 10, height = 10)
+  ggsave("plots/map_avgage1.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -119,7 +119,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_avgtenure.png", width = 10, height = 10)
+  ggsave("plots/map_avgtenure.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -139,7 +139,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_avgwhite.png", width = 10, height = 10)
+  ggsave("plots/map_avgwhite.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -159,7 +159,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_avgorgfair2.png", width = 10, height = 10)
+  ggsave("plots/map_avgorgfair2.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -179,7 +179,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_avgpsm1.png", width = 10, height = 10)
+  ggsave("plots/map_avgpsm1.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -199,7 +199,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_divclim1.png", width = 10, height = 10)
+  ggsave("plots/map_divclim1.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -209,7 +209,7 @@ ggplot() +
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
                        labels=c("1st\n(3.5)","", "50th","", "99th\n(4.5)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
-  ggtitle("Perceptiosn of Work Environment for Women Across OSHP Posts",
+  ggtitle("Perceptions of Work Environment for Women Across OSHP Posts",
           subtitle = "'Highway Patrol fosters a positive work climate for women employees.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
@@ -219,7 +219,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_divclim2.png", width = 10, height = 10)
+  ggsave("plots/map_divclim2.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -239,7 +239,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_womenofficers1.png", width = 10, height = 10)
+  ggsave("plots/map_womenofficers1.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -259,7 +259,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_burnout.png", width = 10, height = 10)
+  ggsave("plots/map_burnout.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -270,7 +270,7 @@ ggplot() +
                        labels=c("1st\n(0.05)","", "50th","", "99th\n(0.67)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Officer Morale Across OSHP Posts",
-          subtitle = "'I feel inspired about my work'") +
+          subtitle = "'I feel inspired about my work.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Officer Morale\nPercentile") +
@@ -279,7 +279,27 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_morale.png", width = 10, height = 10)
+  ggsave("plots/map_morale.png", width = 9, height = 9)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = morale_4agree_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(0.26)","", "50th","", "99th\n(0.85)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Officer Morale Across OSHP Posts",
+          subtitle = "'I feel proud of the work that I do.'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Officer Morale\nPercentile") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_morale4.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -299,7 +319,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_satisfaction.png", width = 10, height = 10)
+  ggsave("plots/map_satisfaction.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -310,7 +330,7 @@ ggplot() +
                        labels=c("1st\n(2.6)","", "50th","", "99th\n(4.7)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Pressure to Make Arrests Across OSHP Posts",
-          subtitle = "'How much pressure is there in your unit to make arrests in order to keep a good standing?'") +
+          subtitle = "'How much pressure is there in your unit to make arrests\n in order to keep a good standing?'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Job Satisfaction\nPercentile") +
@@ -319,7 +339,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_arrestpressure.png", width = 10, height = 10)
+  ggsave("plots/map_arrestpressure.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -330,7 +350,7 @@ ggplot() +
                        labels=c("1st\n(2.7)","", "50th","", "99th\n(4.7)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Pressure for Citations Across OSHP Posts",
-          subtitle = "'How much pressure is there in your unit to keep up the count of citations and contact cards?'") +
+          subtitle = "'How much pressure is there in your unit to keep up the\ncount of citations and contact cards?'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Job Satisfaction\nPercentile") +
@@ -339,7 +359,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_contactpressure.png", width = 10, height = 10)
+  ggsave("plots/map_contactpressure.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -359,7 +379,7 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_physicalharm.png", width = 10, height = 10)
+  ggsave("plots/map_physicalharm.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -370,7 +390,7 @@ ggplot() +
                        labels=c("1st\n(0)","", "50th","", "99th\n(0.44)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Observing Discrimination Across OSHP Posts",
-          subtitle = "'While working in your unit, have you observed any employee being discriminated because of their \nethnicity, gender, race, religion or sexual orientation?'") +
+          subtitle = "'In your unit, have you observed any employee being discriminated\nbecause of their ethnicity, gender, race, religion or sexual orientation?'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Discrimination in\nPostsPercentile") +
@@ -379,7 +399,87 @@ ggplot() +
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_obsdiscrim.png", width = 10, height = 10)
+  ggsave("plots/map_obsdiscrim.png", width = 9, height = 9)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = avgyou_discrimated_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(0)","", "50th","", "99th\n(0.5)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Feeling Discrimination Across OSHP Posts",
+          subtitle = "'While working in your unit, have you ever felt discriminated\nbecause of your ethnicity, gender, race, religion, or sexual orientation?'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Felt Discrimination\nPostsPercentile") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_youdiscrim.png", width = 9, height = 9)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = avgdobserved_excluded_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(0)","", "50th","", "99th\n(0.44)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Observing Exclusion Across OSHP Posts",
+          subtitle = "'In your unit, have you ever observed exclusion because of your\nethnicity, gender, race, religion, or sexual orientation?'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Exclusion\nPercentile") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_obsexcl.png", width = 9, height = 9)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = avgyou_excluded_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(0)","", "50th","", "99th\n(0.33)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Feeling Exclusion Across OSHP Posts",
+          subtitle = "'in your unit, have you ever felt excluded because of your\nethnicity, gender, race, religion, or sexual orientation?'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Exclusion\nPercentile") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_youexcl.png", width = 9, height = 9)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = force_policy_3agree_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(0)","", "50th","", "99th\n(0.41)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Perceptions of Use of Force Across OSHP Posts",
+          subtitle = "'We are not permitted to use as much force as is often necessary.'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Use of Force\nPercentile") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_forcepol3.png", width = 9, height = 9)
 
 #the solve for the "but what if the spread is small?" question may be the have the labels be... 
 #1st
