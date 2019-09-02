@@ -16,14 +16,14 @@ options(tigris_use_cache = TRUE)
 response <- read_csv("data/response.csv")
 oshp <- read_csv("data/OSHP.csv") %>% 
   rename(postname = NAME)
-avg <- read_csv("data/database_deptaverages.csv")
+avg <- read_csv("data/averages_new.csv")
 
 # Merges ------------------------------------------------------------------
 postids <- oshp %>% filter(POST>0) %>% select(POST) %>% pull()
 df <- avg %>% filter(POST %in% postids) %>% write_csv("data/df.csv")
 df_ntile <- df %>%
-  mutate_at(.funs = list(ntile = ~ntile(., 10)), .vars = vars(2:43)) %>% 
-  select(-(avgage:woman_not_suitableagree))
+  mutate_at(.funs = list(ntile = ~ntile(., 10)), .vars = vars(2:50)) %>% 
+  select(-(avgage:lt_proud_agree))
 # Dividing Posts in Same County -------------------------------------------
 oshp_map <- read_csv("data/OSHP.csv") %>% 
   rename(postname = NAME)
@@ -500,6 +500,67 @@ ggplot() +
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
   ggsave("plots/map_intfair6.png", width = 9, height = 9)
+
+#### NEW ONES HERE ####
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = orgfair5agree_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(0)","", "50th","", "99th\n(0.5)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Perceptions of Fair Promotions Across OSHP Posts",
+          subtitle = "'Promotion decisions are NOT influenced by employee race, ethnicity, gender, or religion.'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Fairness of Promotions\nPercentile") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_orgfair5.png", width = 9, height = 9)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = avgintfair6_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(0.17)","", "50th","", "99th\n(0.43)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Perceptions of Supervisor Fairness Across OSHP Posts",
+          subtitle = "'Your Supervisor treats you the same way he or she treats other employees.'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Supervisor Fairness\nPercentile") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_ltcare.png", width = 9, height = 9)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = avgintfair6_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(0.17)","", "50th","", "99th\n(0.43)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Perceptions of Supervisor Fairness Across OSHP Posts",
+          subtitle = "'Your Supervisor treats you the same way he or she treats other employees.'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Supervisor Fairness\nPercentile") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_ltproud.png", width = 9, height = 9)
 
 #the solve for the "but what if the spread is small?" question may be the have the labels be... 
 #1st
