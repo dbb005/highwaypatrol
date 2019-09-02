@@ -450,7 +450,7 @@ ggplot() +
                        labels=c("1st\n(67%)","", "50th","", "99th\n(100%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Feeling Exclusion Across OSHP Posts",
-          subtitle = "'in your unit, have you ever felt excluded because of your\nethnicity, gender, race, religion, or sexual orientation?'") +
+          subtitle = "'In your unit, have you ever felt excluded because of your\nethnicity, gender, race, religion, or sexual orientation?'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Experienced Exclusion Percentile\n\n(% Experienced Exclusion)") +
