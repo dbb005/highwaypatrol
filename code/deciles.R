@@ -143,83 +143,83 @@ ggplot() +
 
 ggplot() +
   geom_sf(data = post_sf,
-          aes(fill = avgorgfair2_ntile),
+          aes(fill = orgfair2agree_ntile),
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(1.5)","", "50th","", "99th\n(3.5)")) +
+                       labels=c("1st\n(0%)","", "50th","", "99th\n(50%")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Organizational Fairness Across OSHP Posts",
           subtitle = "'All employees are treated the same regardless of their ethnicity, gender, race or religion.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Fair Treatment\nPercentile") +
+  labs(fill = "Fair Treatment Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_avgorgfair2.png", width = 9, height = 9)
+  ggsave("plots/map_agreeorgfair2.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
-          aes(fill = avgpsm1_ntile),
+          aes(fill = psm1agree_ntile),
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(3.9)","", "50th","", "99th\n(4.8)")) +
+                       labels=c("1st\n(33%)","", "50th","", "99th\n(95%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Public Service Motivation Across OSHP Posts",
           subtitle = "'Meaningful public service is very important to me.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Average PSM\nPercentile") +
+  labs(fill = "Average PSM Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_avgpsm1.png", width = 9, height = 9)
+  ggsave("plots/map_agreepsm1.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
-          aes(fill = avgdiversityclimate1_ntile),
+          aes(fill = diversityclimate1agree_ntile),
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(3.8)","", "50th","", "99th\n(4.8)")) +
+                       labels=c("1st\n(33%)","", "50th","", "99th\n(100%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Diversity Climate Across OSHP Posts",
           subtitle = "'Highway Patrol welcomes employees of different races and ethnicities.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Diversity Climate\nPercentile") +
+  labs(fill = "Diversity Climate Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_divclim1.png", width = 9, height = 9)
+  ggsave("plots/map_agreedivclim1.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
-          aes(fill = avgdiversityclimate3_ntile),
+          aes(fill = diversityclimate3agree_ntile),
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(3.5)","", "50th","", "99th\n(4.5)")) +
+                       labels=c("1st\n(25%)","", "50th","", "99th\n(92%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Perceptions of Work Environment for Women Across OSHP Posts",
           subtitle = "'Highway Patrol fosters a positive work climate for women employees.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Work Environment\nPercentile") +
+  labs(fill = "Work Climate Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_divclim2.png", width = 9, height = 9)
+  ggsave("plots/map_agreedivclim3.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -227,19 +227,19 @@ ggplot() +
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(0)","", "50th","", "99th\n(0.2)")) +
+                       labels=c("1st\n(20%)","", "50th","", "99th\n(82%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Perceptions of Female Officers Across OSHP Posts",
-          subtitle = "'Law enforcement is not a suitable occupation for women.'") +
+          subtitle = "'Law enforcement is NOT a suitable occupation for women.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Women Officers\nPercentile") +
+  labs(fill = "Women NOT Suitable Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_womenofficers1.png", width = 9, height = 9)
+  ggsave("plots/map_agreewomenofficers1.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -247,19 +247,19 @@ ggplot() +
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(0)","", "50th","", "99th\n(0.38)")) +
+                       labels=c("1st\n(0%)","", "50th","", "99th\n(38%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Officer Burnout Across OSHP Posts",
           subtitle = "'How would you classify your level of burnout?'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Officer Burnout\nPercentile") +
+  labs(fill = "Officer Burnout Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_burnout.png", width = 9, height = 9)
+  ggsave("plots/map_agreeburnout.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -267,19 +267,19 @@ ggplot() +
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(0.05)","", "50th","", "99th\n(0.67)")) +
+                       labels=c("1st\n(53%)","", "50th","", "99th\n(67%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Officer Morale Across OSHP Posts",
           subtitle = "'I feel inspired about my work.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Officer Morale\nPercentile") +
+  labs(fill = "Officer Morale Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_morale.png", width = 9, height = 9)
+  ggsave("plots/map_agreemorale.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -287,19 +287,19 @@ ggplot() +
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(0.26)","", "50th","", "99th\n(0.85)")) +
+                       labels=c("1st\n(26%)","", "50th","", "99th\n(85%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Officer Morale Across OSHP Posts",
           subtitle = "'I feel proud of the work that I do.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Officer Morale\nPercentile") +
+  labs(fill = "Officer Morale Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_morale4.png", width = 9, height = 9)
+  ggsave("plots/map_agreemorale4.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -307,59 +307,59 @@ ggplot() +
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(0.1)","", "50th","", "99th\n(0.85)")) +
+                       labels=c("1st\n(11%)","", "50th","", "99th\n(85%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Officer Job Satisfaction Across OSHP Posts",
           subtitle = "'All in all, how satisfied are you with your job?'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Job Satisfaction\nPercentile") +
+  labs(fill = "Job Satisfaction Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_satisfaction.png", width = 9, height = 9)
+  ggsave("plots/map_agreesatisfaction.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
-          aes(fill = avgarrestpressure_ntile),
+          aes(fill = arrestpressureagree_ntile),
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(2.6)","", "50th","", "99th\n(4.7)")) +
+                       labels=c("1st\n(0%)","", "50th","", "99th\n(42%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Pressure to Make Arrests Across OSHP Posts",
           subtitle = "'How much pressure is there in your unit to make arrests\n in order to keep a good standing?'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Job Satisfaction\nPercentile") +
+  labs(fill = "Arrest Pressure Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_arrestpressure.png", width = 9, height = 9)
+  ggsave("plots/map_agreearrestpressure.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
-          aes(fill = avgcontactpressure_ntile),
+          aes(fill = contactpressureagree_ntile),
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(2.7)","", "50th","", "99th\n(4.7)")) +
+                       labels=c("1st\n(0%)","", "50th","", "99th\n(33%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Pressure for Citations Across OSHP Posts",
           subtitle = "'How much pressure is there in your unit to keep up the\ncount of citations and contact cards?'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Job Satisfaction\nPercentile") +
+  labs(fill = "Citation Pressure Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_contactpressure.png", width = 9, height = 9)
+  ggsave("plots/map_agreecontactpressure.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -447,19 +447,19 @@ ggplot() +
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(0)","", "50th","", "99th\n(0.33)")) +
+                       labels=c("1st\n(67%)","", "50th","", "99th\n(100%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Feeling Exclusion Across OSHP Posts",
           subtitle = "'in your unit, have you ever felt excluded because of your\nethnicity, gender, race, religion, or sexual orientation?'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Exclusion\nPercentile") +
+  labs(fill = "Experienced Exclusion Percentile\n\n(% Experienced Exclusion)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_youexcl.png", width = 9, height = 9)
+  ggsave("plots/map_youexcluded.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -467,19 +467,19 @@ ggplot() +
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(0)","", "50th","", "99th\n(0.41)")) +
+                       labels=c("1st\n(0%)","", "50th","", "99th\n(41%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Perceptions of Use of Force Across OSHP Posts",
           subtitle = "'We are not permitted to use as much force as is often necessary.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Use of Force\nPercentile") +
+  labs(fill = "Use of Force Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_forcepol3.png", width = 9, height = 9)
+  ggsave("plots/map_agreeforcepoli3.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -508,33 +508,33 @@ ggplot() +
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(0)","", "50th","", "99th\n(0.5)")) +
+                       labels=c("1st\n(0%)","", "50th","", "99th\n(50%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
-  ggtitle("Perceptions of Fair Promotions Across OSHP Posts",
+  ggtitle("Perceptions of Fair Promotion Processes Across OSHP Posts",
           subtitle = "'Promotion decisions are NOT influenced by employee race, ethnicity, gender, or religion.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Fairness of Promotions\nPercentile") +
+  labs(fill = "Fairness of Promotions Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_orgfair5.png", width = 9, height = 9)
+  ggsave("plots/map_orgfair5agree.png", width = 9, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
-          aes(fill = avgintfair6_ntile),
+          aes(fill = lt_care_agree_ntile),
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(0.17)","", "50th","", "99th\n(0.43)")) +
+                       labels=c("1st\n(7%)","", "50th","", "99th\n(80%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
-  ggtitle("Perceptions of Supervisor Fairness Across OSHP Posts",
-          subtitle = "'Your Supervisor treats you the same way he or she treats other employees.'") +
+  ggtitle("Perceptions of Lieutenant Support Across OSHP Posts ",
+          subtitle = "'The Lieutenant really cares about my personal well-being.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Supervisor Fairness\nPercentile") +
+  labs(fill = "Lt Support Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
@@ -544,17 +544,17 @@ ggplot() +
 
 ggplot() +
   geom_sf(data = post_sf,
-          aes(fill = avgintfair6_ntile),
+          aes(fill = lt_proud_agree_ntile),
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(0.17)","", "50th","", "99th\n(0.43)")) +
+                       labels=c("1st\n(7%)","", "50th","", "99th\n(71%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
-  ggtitle("Perceptions of Supervisor Fairness Across OSHP Posts",
-          subtitle = "'Your Supervisor treats you the same way he or she treats other employees.'") +
+  ggtitle("Perceptions of Lieutenant Support Across OSHP Posts",
+          subtitle = "'The Lieutenant takes pride in my accomplishments at work.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Supervisor Fairness\nPercentile") +
+  labs(fill = "Lt Support Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
