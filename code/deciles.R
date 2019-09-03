@@ -22,8 +22,8 @@ avg <- read_csv("data/averages_new.csv")
 postids <- oshp %>% filter(POST>0) %>% select(POST) %>% pull()
 df <- avg %>% filter(POST %in% postids) %>% write_csv("data/df.csv")
 df_ntile <- df %>%
-  mutate_at(.funs = list(ntile = ~ntile(., 10)), .vars = vars(2:50)) %>% 
-  select(-(avgage:lt_proud_agree))
+  mutate_at(.funs = list(ntile = ~ntile(., 10)), .vars = vars(2:52)) %>% 
+  select(-(avgage:minority_pref_agree))
 # Dividing Posts in Same County -------------------------------------------
 oshp_map <- read_csv("data/OSHP.csv") %>% 
   rename(postname = NAME)
@@ -82,6 +82,8 @@ post_sf <- st_dissolve(unique_geog, POST) %>%
   left_join(.,post_xw) %>% 
   select(POST,postname,everything(),geometry) %>% 
   st_centroid_xy()
+
+write_csv(df, "")
 # Maps --------------------------------------------------------------------
 ggplot() +
   geom_sf(data = post_sf,
@@ -93,7 +95,7 @@ ggplot() +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Average Age Across OSHP Posts") + #,subtitle = "") +
   ggrepel::geom_label_repel(data = post_sf,
-                           aes(x = x, y = y, label = postname)) +
+                            aes(x = x, y = y, label = postname)) +
   labs(fill = "Average Age\nPercentile") +
   theme_void() +
   theme(legend.position='bottom',
@@ -130,7 +132,7 @@ ggplot() +
                        labels=c("1st\n(33)","", "50th","", "99th\n(100)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Percent of White Respondents Across OSHP Posts") +
-          #subtitle = "'Meaningful public service is very important to me.'") +
+  #subtitle = "'Meaningful public service is very important to me.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Average White\nPercentile") +
@@ -253,7 +255,7 @@ ggplot() +
           subtitle = "'How would you classify your level of burnout?'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Officer Burnout Percentile\n\n(% Agree/Strongly Agree)") +
+  labs(fill = "Officer Burnout Percentile\n\n(% Frustrated or Completely Burned Out)") +
   theme_void() +
   theme(legend.position='bottom',
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
@@ -562,6 +564,46 @@ ggplot() +
         legend.spacing.x = unit(1.0, 'cm')) +
   ggsave("plots/map_ltproud.png", width = 9, height = 9)
 
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = minority_pref_agree_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(11%)","", "50th","", "99th\n(77%)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Preferential Treatment for Minority Employees Across OSHP Posts",
+          subtitle = "'In OHP, minority employees often get preferential treatment over nonminority employees.'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Minorities: Pref. Treatment Percentile\n\n(% Agree/Strongly Agree)") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_minoritypref.png", width = 9, height = 9)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = female_pref_agree_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(6%)","", "50th","", "99th\n(71%)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Preferential Treatment for Female Employees Across OSHP Posts",
+          subtitle = "'In OHP, female employees often get preferential treatment over male employees.'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Female: Pref. Treatment Percentile\n\n(% Agree/Strongly Agree)") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_femalepref.png", width = 9, height = 9)
+
 #the solve for the "but what if the spread is small?" question may be the have the labels be... 
 #1st
 #(number associated with that percentile)
@@ -593,4 +635,4 @@ ggplot() +
   ggtitle("Average Tenure Across OSHP Posts") + 
   labs(fill = "Average\nTenure") +
   theme_void() #+
-  #ggsave("plots/map_avgage.png", width = 10, height = 6)
+#ggsave("plots/map_avgage.png", width = 10, height = 6)
