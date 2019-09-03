@@ -22,8 +22,8 @@ avg <- read_csv("data/averages_new.csv")
 postids <- oshp %>% filter(POST>0) %>% select(POST) %>% pull()
 df <- avg %>% filter(POST %in% postids) %>% write_csv("data/df.csv")
 df_ntile <- df %>%
-  mutate_at(.funs = list(ntile = ~ntile(., 10)), .vars = vars(2:52)) %>% 
-  select(-(avgage:minority_pref_agree))
+  mutate_at(.funs = list(ntile = ~ntile(., 10)), .vars = vars(2:54)) %>% 
+  select(-(avgage:report_force_agree))
 # Dividing Posts in Same County -------------------------------------------
 oshp_map <- read_csv("data/OSHP.csv") %>% 
   rename(postname = NAME)
@@ -603,6 +603,66 @@ ggplot() +
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
   ggsave("plots/map_femalepref.png", width = 9, height = 9)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = work_helps_comm_2agree_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(20%)","", "50th","", "99th\n(85%)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Perceptions of Work Helping the Community Across OSHP Posts",
+          subtitle = "'What I do at work makes a big difference in the community.'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Work Helps Community Percentile\n\n(% Agree/Strongly Agree)") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_work_helps_comm_2agree.png", width = 9, height = 9)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = proc_polic_agree_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(30%)","", "50th","", "99th\n(92%)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Fair Treatment of Citizens Across OSHP Posts",
+          subtitle = "'I feel I have a duty to treat everyone the same way when I stop them on the road.'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Treating Citizens Fairly Percentile\n\n(% Agree/Strongly Agree)") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_proc_polic_agree.png", width = 9, height = 9)
+
+ggplot() +
+  geom_sf(data = post_sf,
+          aes(fill = report_force_agree_ntile),
+          color = "black") +
+  scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
+                       colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
+                       labels=c("1st\n(19%)","", "50th","", "99th\n(85%)")) +
+  #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
+  ggtitle("Willingness to Report Mistreatment Across OSHP Posts",
+          subtitle = "'If I observed a coworker being disrespectful to public, I would notify my superiors.'") +
+  ggrepel::geom_label_repel(data = post_sf,
+                            aes(x = x, y = y, label = postname)) +
+  labs(fill = "Report Disrespect Percentile\n\n(% Agree/Strongly Agree)") +
+  theme_void() +
+  theme(legend.position='bottom',
+        plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        legend.spacing.x = unit(1.0, 'cm')) +
+  ggsave("plots/map_report_force_agree.png", width = 9, height = 9)
 
 #the solve for the "but what if the spread is small?" question may be the have the labels be... 
 #1st
