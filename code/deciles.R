@@ -22,8 +22,8 @@ avg <- read_csv("data/averages_new.csv")
 postids <- oshp %>% filter(POST>0) %>% select(POST) %>% pull()
 df <- avg %>% filter(POST %in% postids) %>% write_csv("data/df.csv")
 df_ntile <- df %>%
-  mutate_at(.funs = list(ntile = ~ntile(., 10)), .vars = vars(2:54)) %>% 
-  select(-(avgage:report_force_agree))
+  mutate_at(.funs = list(ntile = ~ntile(., 10)), .vars = vars(2:52)) %>% 
+  select(-(avgage:minority_pref_agree))
 # Dividing Posts in Same County -------------------------------------------
 oshp_map <- read_csv("data/OSHP.csv") %>% 
   rename(postname = NAME)
@@ -98,11 +98,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Average Age\nPercentile") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_avgage1.png", width = 9, height = 9)
+  ggsave("plots/map_avgage1.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -117,11 +120,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Average Tenure\nPercentile") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_avgtenure.png", width = 9, height = 9)
+  ggsave("plots/map_avgtenure.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -137,11 +143,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Average White\nPercentile") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_avgwhite.png", width = 9, height = 9)
+  ggsave("plots/map_avgwhite.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -149,7 +158,7 @@ ggplot() +
           color = "black") +
   scale_fill_gradientn(breaks=c(1, 2.5, 5.0, 7.5, 9.9), 
                        colors=c("#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"),
-                       labels=c("1st\n(0%)","", "50th","", "99th\n(50%")) +
+                       labels=c("1st\n(0%)","", "50th","", "99th\n(50%)")) +
   #http://colorbrewer2.org/#type=sequential&scheme=Purples&n=7
   ggtitle("Organizational Fairness Across OSHP Posts",
           subtitle = "'All employees are treated the same regardless of their ethnicity, gender, race or religion.'") +
@@ -157,11 +166,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Fair Treatment Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreeorgfair2.png", width = 9, height = 9)
+  ggsave("plots/map_agreeorgfair2.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -175,13 +187,16 @@ ggplot() +
           subtitle = "'Meaningful public service is very important to me.'") +
   ggrepel::geom_label_repel(data = post_sf,
                             aes(x = x, y = y, label = postname)) +
-  labs(fill = "Average PSM Percentile\n\n(% Agree/Strongly Agree)") +
+  labs(fill = "Pub. Service Motivation Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreepsm1.png", width = 9, height = 9)
+  ggsave("plots/map_agreepsm1.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -197,11 +212,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Diversity Climate Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreedivclim1.png", width = 9, height = 9)
+  ggsave("plots/map_agreedivclim1.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -217,11 +235,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Work Climate Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreedivclim3.png", width = 9, height = 9)
+  ggsave("plots/map_agreedivclim3.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -237,11 +258,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Women NOT Suitable Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreewomenofficers1.png", width = 9, height = 9)
+  ggsave("plots/map_agreewomenofficers1.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -257,11 +281,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Officer Burnout Percentile\n\n(% Frustrated or Completely Burned Out)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreeburnout.png", width = 9, height = 9)
+  ggsave("plots/map_agreeburnout.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -277,11 +304,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Officer Morale Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreemorale.png", width = 9, height = 9)
+  ggsave("plots/map_agreemorale.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -297,11 +327,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Officer Morale Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreemorale4.png", width = 9, height = 9)
+  ggsave("plots/map_agreemorale4.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -317,11 +350,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Job Satisfaction Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreesatisfaction.png", width = 9, height = 9)
+  ggsave("plots/map_agreesatisfaction.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -337,11 +373,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Arrest Pressure Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreearrestpressure.png", width = 9, height = 9)
+  ggsave("plots/map_agreearrestpressure.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -357,11 +396,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Citation Pressure Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreecontactpressure.png", width = 9, height = 9)
+  ggsave("plots/map_agreecontactpressure.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -377,11 +419,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Physical Harm\nPercentile") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_physicalharm.png", width = 9, height = 9)
+  ggsave("plots/map_physicalharm.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -397,11 +442,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Discrimination in\nPostsPercentile") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_obsdiscrim.png", width = 9, height = 9)
+  ggsave("plots/map_obsdiscrim.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -417,11 +465,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Felt Discrimination\nPostsPercentile") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_youdiscrim.png", width = 9, height = 9)
+  ggsave("plots/map_youdiscrim.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -437,11 +488,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Exclusion\nPercentile") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_obsexcl.png", width = 9, height = 9)
+  ggsave("plots/map_obsexcl.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -457,11 +511,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Experienced Exclusion Percentile\n\n(% Experienced Exclusion)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_youexcluded.png", width = 9, height = 9)
+  ggsave("plots/map_youexcluded.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -477,11 +534,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Use of Force Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_agreeforcepoli3.png", width = 9, height = 9)
+  ggsave("plots/map_agreeforcepoli3.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -497,11 +557,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Supervisor Fairness\nPercentile") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_intfair6.png", width = 9, height = 9)
+  ggsave("plots/map_intfair6.png", width = 14, height = 9)
 
 #### NEW ONES HERE ####
 ggplot() +
@@ -518,11 +581,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Fairness of Promotions Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_orgfair5agree.png", width = 9, height = 9)
+  ggsave("plots/map_orgfair5agree.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -538,11 +604,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Lt Support Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_ltcare.png", width = 9, height = 9)
+  ggsave("plots/map_ltcare.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -558,11 +627,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Lt Support Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_ltproud.png", width = 9, height = 9)
+  ggsave("plots/map_ltproud.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -578,11 +650,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Minorities: Pref. Treatment Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_minoritypref.png", width = 9, height = 9)
+  ggsave("plots/map_minoritypref.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -598,11 +673,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Female: Pref. Treatment Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_femalepref.png", width = 9, height = 9)
+  ggsave("plots/map_femalepref.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -618,11 +696,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Work Helps Community Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_work_helps_comm_2agree.png", width = 9, height = 9)
+  ggsave("plots/map_work_helps_comm_2agree.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -638,11 +719,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Treating Citizens Fairly Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_proc_polic_agree.png", width = 9, height = 9)
+  ggsave("plots/map_proc_polic_agree.png", width = 14, height = 9)
 
 ggplot() +
   geom_sf(data = post_sf,
@@ -658,11 +742,14 @@ ggplot() +
                             aes(x = x, y = y, label = postname)) +
   labs(fill = "Report Disrespect Percentile\n\n(% Agree/Strongly Agree)") +
   theme_void() +
-  theme(legend.position='bottom',
+  theme(legend.position='right',
+        legend.direction = 'horizontal',
+        legend.title=element_text(size=14),
+        legend.text = element_text(size = 14),
         plot.title = element_text(face="bold", size = 20, hjust = 0.5), 
         plot.subtitle = element_text(size = 16, hjust = 0.5),
         legend.spacing.x = unit(1.0, 'cm')) +
-  ggsave("plots/map_report_force_agree.png", width = 9, height = 9)
+  ggsave("plots/map_report_force_agree.png", width = 14, height = 9)
 
 #the solve for the "but what if the spread is small?" question may be the have the labels be... 
 #1st
